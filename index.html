@@ -1,0 +1,1173 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI & Data Science Training per Mondadori</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --accent-light: #ff6b6b;
+            --text: #ffffff;
+            --text-secondary: #a0a0a0;
+            --success: #4ecca3;
+            --warning: #ffd93d;
+            --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--primary);
+            color: var(--text);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1e 100%);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(233, 69, 96, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            animation: move 20s linear infinite;
+        }
+
+        @keyframes move {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            background: var(--gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .hero p {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+        }
+
+        .cta-button {
+            padding: 1rem 3rem;
+            font-size: 1.2rem;
+            background: var(--accent);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .cta-button:hover::before {
+            left: 100%;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(233, 69, 96, 0.5);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        nav.scrolled {
+            box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text);
+            text-decoration: none;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 5rem 2rem;
+            background: var(--secondary);
+            position: relative;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before {
+            opacity: 0.1;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+        }
+
+        /* Days Grid */
+        .days-section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: var(--gradient);
+            border-radius: 2px;
+        }
+
+        .days-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .day-card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 20px;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .day-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: var(--gradient);
+        }
+
+        .day-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+
+        .day-number {
+            display: flex;
+            width: 50px;
+            height: 50px;
+            background: var(--accent);
+            color: white;
+            border-radius: 15px;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .day-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text);
+        }
+
+        .day-description {
+            color: var(--text-secondary);
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .topics-list {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .topics-list li {
+            padding: 0.5rem 0;
+            color: var(--text-secondary);
+            position: relative;
+            padding-left: 1.5rem;
+        }
+
+        .topics-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* Timeline */
+        .timeline-section {
+            padding: 5rem 2rem;
+            background: var(--secondary);
+        }
+
+        .timeline {
+            max-width: 800px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: var(--accent);
+        }
+
+        .timeline-item {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 30px;
+            position: relative;
+            margin: 2rem 0;
+            width: 50%;
+        }
+
+        .timeline-item:nth-child(odd) {
+            align-self: flex-end;
+            justify-content: flex-start;
+            padding-left: 30px;
+            padding-right: 0;
+            margin-left: 50%;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--accent);
+            border-radius: 50%;
+            top: 10px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-dot {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            left: -10px;
+        }
+
+        .timeline-content {
+            background: rgba(255,255,255,0.05);
+            padding: 1.5rem;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .timeline-time {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Features */
+        .features {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.05);
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            border-color: var(--accent);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .hero p {
+                font-size: 1.2rem;
+            }
+            
+            .timeline::before {
+                left: 30px;
+            }
+            
+            .timeline-item {
+                width: 100%;
+                padding-left: 60px;
+                padding-right: 0;
+            }
+            
+            .timeline-item:nth-child(odd) {
+                margin-left: 0;
+            }
+            
+            .timeline-dot {
+                left: 20px !important;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+        }
+
+        /* Animations */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        @keyframes slideInLeft {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        @keyframes slideInRight {
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        /* Interactive elements */
+        .interactive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .particle {
+            position: absolute;
+            background: var(--accent);
+            border-radius: 50%;
+            pointer-events: none;
+            opacity: 0.3;
+            animation: float 15s infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) translateX(0);
+            }
+            25% {
+                transform: translateY(-100px) translateX(50px);
+            }
+            50% {
+                transform: translateY(-50px) translateX(-50px);
+            }
+            75% {
+                transform: translateY(-150px) translateX(25px);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        .scroll-indicator svg {
+            width: 30px;
+            height: 30px;
+            fill: var(--accent);
+        }
+    </style>
+</head>
+<body>
+    <!-- Interactive Background -->
+    <div class="interactive-bg" id="interactiveBg"></div>
+
+    <!-- Navigation -->
+    <nav id="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <h3 style="color: var(--accent);">AI Training • Mondadori</h3>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#program">Programma</a></li>
+                <li><a href="#timeline">Timeline</a></li>
+                <li><a href="#features">Features</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1 class="fade-in">AI & Data Science per l'Editoria del Futuro</h1>
+            <p class="fade-in" style="animation-delay: 0.2s;">Percorso formativo avanzato per Data Scientists Mondadori</p>
+            <a href="#overview" class="cta-button fade-in" style="animation-delay: 0.4s;">Scopri il Programma</a>
+        </div>
+        <div class="scroll-indicator">
+            <svg viewBox="0 0 24 24">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+            </svg>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats" id="overview">
+        <div class="stats-container">
+            <div class="stat-card slide-in-left">
+                <div class="stat-number">6</div>
+                <div class="stat-label">Giornate Intensive</div>
+            </div>
+            <div class="stat-card slide-in-left" style="animation-delay: 0.1s;">
+                <div class="stat-number">24</div>
+                <div class="stat-label">Ore di Formazione</div>
+            </div>
+            <div class="stat-card slide-in-left" style="animation-delay: 0.2s;">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Tools AI Avanzati</div>
+            </div>
+            <div class="stat-card slide-in-left" style="animation-delay: 0.3s;">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Hands-on Practice</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Days Grid -->
+    <section class="days-section" id="program">
+        <h2 class="section-title fade-in">Il Programma Completo</h2>
+        <div class="days-grid">
+            <div class="day-card fade-in">
+                <div class="day-number">1</div>
+                <h3 class="day-title">AI Literacy & Prompt Engineering</h3>
+                <p class="day-description">Fondamenti terminologici e tecniche avanzate di prompting per ottimizzare l'interazione con LLM</p>
+                <ul class="topics-list">
+                    <li>Glossario LLM completo</li>
+                    <li>Zero-shot, Few-shot, Chain-of-Thought</li>
+                    <li>Chatbot iterativo showcase</li>
+                    <li>Esercizi hands-on su dataset Mondadori</li>
+                </ul>
+            </div>
+
+            <div class="day-card fade-in" style="animation-delay: 0.1s;">
+                <div class="day-number">2</div>
+                <h3 class="day-title">Tool Landscape</h3>
+                <p class="day-description">Panoramica completa degli strumenti AI moderni e come selezionare quello giusto</p>
+                <ul class="topics-list">
+                    <li>Comparativa Chatbot SaaS</li>
+                    <li>Perplexity & retrieval systems</li>
+                    <li>AI Studio & notebooks</li>
+                    <li>Productivity tools showcase</li>
+                </ul>
+            </div>
+
+            <div class="day-card fade-in" style="animation-delay: 0.2s;">
+                <div class="day-number">3</div>
+                <h3 class="day-title">ETL & Data Quality</h3>
+                <p class="day-description">Automatizzare il cleaning dei dati per migliorare il time-to-insight</p>
+                <ul class="topics-list">
+                    <li>Pattern ETL + GenAI</li>
+                    <li>Live coding SQL/Python</li>
+                    <li>Data quality automation</li>
+                    <li>Report & doc auto-generation</li>
+                </ul>
+            </div>
+
+            <div class="day-card fade-in" style="animation-delay: 0.3s;">
+                <div class="day-number">4</div>
+                <h3 class="day-title">Anomaly Detection & Feature Engineering</h3>
+                <p class="day-description">Individuare trend anomali e generare feature creative per analisi avanzate</p>
+                <ul class="topics-list">
+                    <li>Teoria delle anomalie</li>
+                    <li>PyOD & IsolationForest</li>
+                    <li>Feature extraction con LLM</li>
+                    <li>CLIP per embedding immagini</li>
+                </ul>
+            </div>
+
+            <div class="day-card fade-in" style="animation-delay: 0.4s;">
+                <div class="day-number">5</div>
+                <h3 class="day-title">Dataviz & Dashboards</h3>
+                <p class="day-description">Comunicare insight complessi a stakeholder non tecnici in modo efficace</p>
+                <ul class="topics-list">
+                    <li>Storytelling with data</li>
+                    <li>Gen-code grafici Matplotlib/Plotly</li>
+                    <li>Dashboard Streamlit</li>
+                    <li>Graph caption generation</li>
+                </ul>
+            </div>
+
+            <div class="day-card fade-in" style="animation-delay: 0.5s;">
+                <div class="day-number">6</div>
+                <h3 class="day-title">Ethics & Governance / RAG & Agents</h3>
+                <p class="day-description">Due percorsi alternativi per completare la formazione</p>
+                <ul class="topics-list">
+                    <li>Privacy & EU AI Act</li>
+                    <li>RAG pipelines avanzate</li>
+                    <li>Agentic patterns</li>
+                    <li>Ideathon finale Mondadori</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline -->
+    <section class="timeline-section" id="timeline">
+        <h2 class="section-title fade-in">Una Giornata Tipo</h2>
+        <div class="timeline">
+            <div class="timeline-item fade-in">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">14:00 - 14:10</div>
+                    <div class="timeline-title">Kick-off & Mapping</div>
+                    <p>Presentazione e allineamento aspettative</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="animation-delay: 0.1s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">14:10 - 14:55</div>
+                    <div class="timeline-title">Teoria & Fondamenti</div>
+                    <p>Concetti chiave e framework teorici</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="animation-delay: 0.2s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">14:55 - 15:40</div>
+                    <div class="timeline-title">Demo Live & Showcase</div>
+                    <p>Applicazioni pratiche e casi d'uso reali</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="animation-delay: 0.3s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">15:55 - 16:40</div>
+                    <div class="timeline-title">Hands-on Workshop</div>
+                    <p>Esercizi pratici su dataset Mondadori</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="animation-delay: 0.4s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">16:40 - 17:25</div>
+                    <div class="timeline-title">Laboratorio Guidato</div>
+                    <p>Progetti collaborativi e sperimentazione</p>
+                </div>
+            </div>
+            <div class="timeline-item fade-in" style="animation-delay: 0.5s;">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-time">17:25 - 18:00</div>
+                    <div class="timeline-title">Debrief & Q&A</div>
+                    <p>Consolidamento learning e discussione</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <h2 class="section-title fade-in">Perché Questo Percorso è Unico</h2>
+        <div class="features-grid">
+            <div class="feature-card fade-in">
+                <span class="feature-icon">🎯</span>
+                <h3 class="feature-title">Focus Editoria</h3>
+                <p>Casi d'uso specifici per Mondadori con dataset reali anonimizzati</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay: 0.1s;">
+                <span class="feature-icon">🚀</span>
+                <h3 class="feature-title">Tools Cutting-Edge</h3>
+                <p>Accesso a GPT-4, Claude, Gemini, NotebookLM e piattaforme enterprise</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay: 0.2s;">
+                <span class="feature-icon">💡</span>
+                <h3 class="feature-title">Learning by Doing</h3>
+                <p>80% pratica con live coding, workshop e progetti collaborativi</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay: 0.3s;">
+                <span class="feature-icon">🎨</span>
+                <h3 class="feature-title">Creative AI</h3>
+                <p>Dalla generazione di contenuti alla visualizzazione dati innovativa</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay: 0.4s;">
+                <span class="feature-icon">🔒</span>
+                <h3 class="feature-title">Ethics First</h3>
+                <p>Governance AI, privacy GDPR e compliance EU AI Act integrati</p>
+            </div>
+            <div class="feature-card fade-in" style="animation-delay: 0.5s;">
+                <span class="feature-icon">🏆</span>
+                <h3 class="feature-title">ROI Immediato</h3>
+                <p>Competenze applicabili dal day-1 per ottimizzare workflow esistenti</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <h3 style="color: var(--accent); margin-bottom: 1rem;">Pronto a Trasformare il Futuro dell'Editoria?</h3>
+            <p style="color: var(--text-secondary); margin-bottom: 2rem;">Un percorso progettato per elevare le competenze AI del team Data Science Mondadori</p>
+            <a href="#home" class="cta-button">Iniziamo il Viaggio</a>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Intersection Observer for animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animationPlayState = 'running';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all animated elements
+        document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right').forEach(el => {
+            el.style.animationPlayState = 'paused';
+            observer.observe(el);
+        });
+
+        // Interactive background particles
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            const size = Math.random() * 5 + 2;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
+            particle.style.top = `${Math.random() * 100}%`;
+            particle.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            particle.style.animationDelay = `${Math.random() * 5}s`;
+            document.getElementById('interactiveBg').appendChild(particle);
+            
+            setTimeout(() => particle.remove(), 20000);
+        }
+
+        // Create particles periodically
+        setInterval(createParticle, 2000);
+        for (let i = 0; i < 10; i++) {
+            setTimeout(createParticle, i * 200);
+        }
+
+        // Mouse parallax effect
+        document.addEventListener('mousemove', (e) => {
+            const cards = document.querySelectorAll('.day-card, .stat-card, .feature-card');
+            const x = e.clientX / window.innerWidth;
+            const y = e.clientY / window.innerHeight;
+            
+            cards.forEach(card => {
+                const rect = card.getBoundingClientRect();
+                const cardX = rect.left + rect.width / 2;
+                const cardY = rect.top + rect.height / 2;
+                const distX = (e.clientX - cardX) / 50;
+                const distY = (e.clientY - cardY) / 50;
+                
+                if (Math.abs(distX) < 10 && Math.abs(distY) < 10) {
+                    card.style.transform = `translateY(-5px) rotateY(${distX}deg) rotateX(${-distY}deg)`;
+                }
+            });
+        });
+
+        // Reset card positions when mouse leaves window
+        document.addEventListener('mouseleave', () => {
+            document.querySelectorAll('.day-card, .stat-card, .feature-card').forEach(card => {
+                card.style.transform = '';
+            });
+        });
+        
+        // Alternative: reset on mouseout from cards
+        document.querySelectorAll('.day-card, .stat-card, .feature-card').forEach(card => {
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = '';
+            });
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            const originalText = element.textContent;
+            const hasPlus = originalText.includes('+');
+            const numericTarget = parseInt(originalText.replace('+', ''));
+            
+            let current = 0;
+            const increment = numericTarget / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= numericTarget) {
+                    current = numericTarget;
+                    clearInterval(timer);
+                }
+                
+                let displayText = Math.floor(current).toString();
+                if (hasPlus) {
+                    displayText += '+';
+                }
+                element.textContent = displayText;
+            }, 30);
+        }
+
+        // Observe stat numbers for counter animation
+        const statObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumber = entry.target;
+                    animateCounter(statNumber);
+                    statObserver.unobserve(statNumber);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.stat-number').forEach(stat => {
+            statObserver.observe(stat);
+        });
+
+        // Progress indicator
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            
+            // Create progress bar if it doesn't exist
+            let progressBar = document.getElementById('progressBar');
+            if (!progressBar) {
+                progressBar = document.createElement('div');
+                progressBar.id = 'progressBar';
+                progressBar.style.cssText = `
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    height: 3px;
+                    background: var(--gradient);
+                    z-index: 9999;
+                    transition: width 0.3s ease;
+                `;
+                document.body.appendChild(progressBar);
+            }
+            progressBar.style.width = scrolled + '%';
+        });
+
+        // Typewriter effect for hero title
+        const heroTitle = document.querySelector('.hero h1');
+        const originalText = heroTitle.textContent;
+        heroTitle.textContent = '';
+        let charIndex = 0;
+
+        function typeWriter() {
+            if (charIndex < originalText.length) {
+                heroTitle.textContent += originalText.charAt(charIndex);
+                charIndex++;
+                setTimeout(typeWriter, 50);
+            }
+        }
+
+        // Start typewriter after page load
+        window.addEventListener('load', () => {
+            setTimeout(typeWriter, 500);
+        });
+
+        // Mobile menu toggle
+        function createMobileMenu() {
+            const nav = document.querySelector('.nav-container');
+            if (!nav) return; // Safety check
+            
+            const menuBtn = document.createElement('div');
+            menuBtn.className = 'mobile-menu-btn';
+            menuBtn.innerHTML = `
+                <svg width="30" height="30" viewBox="0 0 30 30" style="fill: white;">
+                    <rect x="4" y="6" width="22" height="2" fill="white"/>
+                    <rect x="4" y="14" width="22" height="2" fill="white"/>
+                    <rect x="4" y="22" width="22" height="2" fill="white"/>
+                </svg>
+            `;
+            menuBtn.style.cssText = `
+                display: none;
+                cursor: pointer;
+            `;
+            
+            // Show menu button on mobile
+            if (window.innerWidth <= 768) {
+                menuBtn.style.display = 'block';
+            }
+            
+            window.addEventListener('resize', () => {
+                if (window.innerWidth <= 768) {
+                    menuBtn.style.display = 'block';
+                } else {
+                    menuBtn.style.display = 'none';
+                    const navLinks = document.querySelector('.nav-links');
+                    // Reset mobile menu styles
+                    navLinks.style.display = 'flex';
+                    navLinks.style.flexDirection = 'row';
+                    navLinks.style.position = 'static';
+                    navLinks.style.background = 'transparent';
+                    navLinks.style.padding = '0';
+                    navLinks.style.boxShadow = 'none';
+                    navLinks.style.zIndex = 'auto';
+                }
+            });
+            
+            menuBtn.addEventListener('click', () => {
+                const navLinks = document.querySelector('.nav-links');
+                const isVisible = navLinks.style.display === 'flex';
+                
+                if (isVisible) {
+                    navLinks.style.display = 'none';
+                } else {
+                    navLinks.style.display = 'flex';
+                    navLinks.style.flexDirection = 'column';
+                    navLinks.style.position = 'absolute';
+                    navLinks.style.top = '100%';
+                    navLinks.style.left = '0';
+                    navLinks.style.right = '0';
+                    navLinks.style.background = 'var(--secondary)';
+                    navLinks.style.padding = '1rem';
+                    navLinks.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+                    navLinks.style.zIndex = '1001';
+                }
+            });
+            nav.appendChild(menuBtn);
+        }
+
+        createMobileMenu();
+
+        // Add hover sound effect (optional)
+        const hoverElements = document.querySelectorAll('.cta-button, .day-card, .feature-card');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                // You could add a subtle sound effect here
+                element.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+            });
+        });
+
+        // Create floating tooltips for day cards
+        document.querySelectorAll('.day-card').forEach(card => {
+            card.addEventListener('mouseenter', (e) => {
+                const tooltip = document.createElement('div');
+                tooltip.className = 'tooltip';
+                tooltip.textContent = '🚀 Click per dettagli';
+                tooltip.style.cssText = `
+                    position: absolute;
+                    background: var(--accent);
+                    color: white;
+                    padding: 0.5rem 1rem;
+                    border-radius: 20px;
+                    font-size: 0.9rem;
+                    pointer-events: none;
+                    transform: translateY(-10px);
+                    opacity: 0;
+                    transition: all 0.3s ease;
+                    z-index: 1000;
+                `;
+                card.appendChild(tooltip);
+                
+                setTimeout(() => {
+                    tooltip.style.opacity = '1';
+                    tooltip.style.transform = 'translateY(-20px)';
+                }, 10);
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                const tooltip = card.querySelector('.tooltip');
+                if (tooltip) {
+                    tooltip.style.opacity = '0';
+                    setTimeout(() => tooltip.remove(), 300);
+                }
+            });
+        });
+
+        // Add click interactions for cards
+        document.querySelectorAll('.day-card').forEach((card, index) => {
+            card.style.cursor = 'pointer';
+            card.addEventListener('click', () => {
+                // Create modal or expand card logic here
+                card.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    card.style.transform = '';
+                }, 300);
+            });
+        });
+
+        // Dynamic theme based on scroll position
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', () => {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            const sections = document.querySelectorAll('section');
+            
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top <= 100 && rect.bottom >= 100) {
+                    // Section is in view
+                    section.classList.add('active-section');
+                } else {
+                    section.classList.remove('active-section');
+                }
+            });
+            
+            // Scroll direction detection (for future use)
+            const isScrollingDown = st > lastScrollTop;
+            lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
+        });
+    </script>
+</body>
+</html>
