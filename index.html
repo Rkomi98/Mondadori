@@ -609,6 +609,188 @@
             height: 30px;
             fill: var(--accent);
         }
+
+        /* More details button */
+        .more-details-btn {
+            margin-top: 1rem;
+            padding: 0.8rem 1.5rem;
+            background: transparent;
+            border: 2px solid var(--accent);
+            color: var(--accent);
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .more-details-btn:hover {
+            background: var(--accent);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.3);
+        }
+
+        .more-details-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+            transform: translate(-50%, -50%);
+        }
+
+        .more-details-btn:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Modal styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
+            animation: fadeIn 0.3s ease;
+        }
+
+        .modal-content {
+            background: var(--secondary);
+            margin: 5% auto;
+            padding: 2rem;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 900px;
+            max-height: 80vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1.5rem;
+            font-size: 2rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: color 0.3s ease;
+        }
+
+        .modal-close:hover {
+            color: var(--accent);
+        }
+
+        .modal-title {
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 0.5rem;
+        }
+
+        /* Schedule table */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            background: rgba(255,255,255,0.03);
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .schedule-table th {
+            background: var(--accent);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .schedule-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            vertical-align: top;
+        }
+
+        .schedule-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .schedule-table tr:nth-child(even) {
+            background: rgba(255,255,255,0.02);
+        }
+
+        .schedule-table tr:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        .time-slot {
+            font-weight: bold;
+            color: var(--accent);
+            white-space: nowrap;
+        }
+
+        .duration {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .topic {
+            color: var(--text);
+            font-weight: 500;
+            line-height: 1.4;
+        }
+
+        .objective {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .break-row {
+            background: rgba(255, 211, 61, 0.1) !important;
+        }
+
+        .break-row .topic {
+            color: var(--warning);
+            font-weight: bold;
+        }
+
+        /* Responsive modal */
+        @media (max-width: 768px) {
+            .modal-content {
+                width: 95%;
+                margin: 2% auto;
+                padding: 1.5rem;
+                max-height: 90vh;
+            }
+            
+            .modal-title {
+                font-size: 1.5rem;
+            }
+            
+            .schedule-table {
+                font-size: 0.9rem;
+            }
+            
+            .schedule-table th,
+            .schedule-table td {
+                padding: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
@@ -681,6 +863,7 @@
                     <li>Chatbot iterativo showcase</li>
                     <li>Esercizi hands-on su dataset Mondadori</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day1')">📋 Più dettagli</button>
             </div>
 
             <div class="day-card fade-in" style="animation-delay: 0.1s;">
@@ -693,6 +876,7 @@
                     <li>AI Studio & notebooks</li>
                     <li>Productivity tools showcase</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day2')">🔧 Più dettagli</button>
             </div>
 
             <div class="day-card fade-in" style="animation-delay: 0.2s;">
@@ -705,6 +889,7 @@
                     <li>Data quality automation</li>
                     <li>Report & doc auto-generation</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day3')">🔄 Più dettagli</button>
             </div>
 
             <div class="day-card fade-in" style="animation-delay: 0.3s;">
@@ -717,6 +902,7 @@
                     <li>Feature extraction con LLM</li>
                     <li>CLIP per embedding immagini</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day4')">🔍 Più dettagli</button>
             </div>
 
             <div class="day-card fade-in" style="animation-delay: 0.4s;">
@@ -729,6 +915,7 @@
                     <li>Dashboard Streamlit</li>
                     <li>Graph caption generation</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day5')">📊 Più dettagli</button>
             </div>
 
             <div class="day-card fade-in" style="animation-delay: 0.5s;">
@@ -741,6 +928,7 @@
                     <li>Agentic patterns</li>
                     <li>Ideathon finale Mondadori</li>
                 </ul>
+                <button class="more-details-btn" onclick="openModal('day6')">🎯 Più dettagli</button>
             </div>
         </div>
     </section>
@@ -845,6 +1033,385 @@
             <a href="#home" class="cta-button">Iniziamo il Viaggio</a>
         </div>
     </footer>
+
+    <!-- Modals for day details -->
+    <div id="day1Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day1')">&times;</span>
+            <h2 class="modal-title">Giornata 1: AI Literacy & Prompt Engineering</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Base terminologica comune e prompt robusti per ridurre iterazioni e costi</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Orario</th>
+                        <th>Durata</th>
+                        <th>Argomento</th>
+                        <th>Obiettivo</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">14:00‑14:10</td>
+                        <td class="duration">10 min</td>
+                        <td class="topic">Kick‑off & mapping aspettative</td>
+                        <td class="objective">Presentazione di chi sono e spiego percorso</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:10‑14:55</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Glossario LLM (token, embedding, attenzione, temperature, context, RAG)</td>
+                        <td class="objective">Fondare un linguaggio comune</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:55‑15:40</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Prompt Engineering avanzato (zero-/few-/CoT)</td>
+                        <td class="objective">Casi d'uso replicabili in azienda. Esperimenti live in base alle proposte</td>
+                    </tr>
+                    <tr class="break-row">
+                        <td class="time-slot">15:40‑15:55</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">☕ Break</td>
+                        <td class="objective">-</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">15:55‑16:40</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Show-case chatbot iterativo (Q&A → ideazione titoli, insight, correzioni)</td>
+                        <td class="objective">Visualizzare la pipeline conversazionale. AI Studio o ChatGPT</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:40‑17:25</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Esercizi hands-on su prompt (classification, summarization, ideazione)</td>
+                        <td class="objective">Applicazione su dataset Mondadori</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">17:25‑18:00</td>
+                        <td class="duration">35 min</td>
+                        <td class="topic">Debrief & retrospettiva</td>
+                        <td class="objective">Consolidare il learning. Q&A e use case</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="day2Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day2')">&times;</span>
+            <h2 class="modal-title">Giornata 2: Tool Landscape</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Come selezionare lo strumento giusto per ogni task</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Orario</th>
+                        <th>Durata</th>
+                        <th>Argomento</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">14:00‑14:45</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Comparativa Chatbot SaaS (GPT, Claude, Gemini, NotebookLM)</td>
+                        <td class="objective">Opus dashboard top, Gemini su notebook, GPT generalista. NotebookLM per interrogare siti e doc</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:45‑14:55</td>
+                        <td class="duration">10 min</td>
+                        <td class="topic">Perplexity & analoghi (retrieval + citazioni)</td>
+                        <td class="objective">Demo su fact-checking. Come trovare informazioni</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:55‑15:45</td>
+                        <td class="duration">35 min</td>
+                        <td class="topic">Deep Research workflow (iterative search, focus Mondadori)</td>
+                        <td class="objective">Confronto tra GPT e Gemini. Deep research con podcast e schemi</td>
+                    </tr>
+                    <tr class="break-row">
+                        <td class="time-slot">15:45‑16:00</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">☕ Break</td>
+                        <td class="objective">-</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:00‑16:30</td>
+                        <td class="duration">30 min</td>
+                        <td class="topic">AI Studio & notebooks (Vertex, AWS Bedrock)</td>
+                        <td class="objective">Analisi comparativa su dataset anonimizzato. Accesso AWS per sperimentare</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:30‑17:10</td>
+                        <td class="duration">40 min</td>
+                        <td class="topic">Productivity tools (Napkin, Excalidraw, Gamma)</td>
+                        <td class="objective">Slide generation da Deep Research. Markdown, LaTeX, Gamma e Napkin</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">17:10‑18:00</td>
+                        <td class="duration">50 min</td>
+                        <td class="topic">Workshop a gruppi su tool (mini-demo finale 5')</td>
+                        <td class="objective">Sperimentazione autonoma</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="day3Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day3')">&times;</span>
+            <h2 class="modal-title">Giornata 3: ETL & Data Quality</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Automatizzare cleaning per migliorare time‑to‑insight</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Orario</th>
+                        <th>Durata</th>
+                        <th>Contenuto</th>
+                        <th>Focus</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">14:00‑14:10</td>
+                        <td class="duration">10 min</td>
+                        <td class="topic">Intro: Domande?</td>
+                        <td class="objective">Allineamento</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:10‑14:55</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Pattern ETL + GenAI (reverse-ETL, db-chat, LLM-SQL)</td>
+                        <td class="objective">Architetture moderne</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:55‑15:40</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Live coding: generazione codice SQL/Python + data-catalog suggestions</td>
+                        <td class="objective">Dataset CRM dummy. Lavorerei su Cursor</td>
+                    </tr>
+                    <tr class="break-row">
+                        <td class="time-slot">15:40‑15:55</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">☕ Break</td>
+                        <td class="objective">-</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">15:55‑16:40</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Live coding: regole di data quality (dedup, validation) via AI</td>
+                        <td class="objective">Great Expectations / Soda. MLOps Testing base</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:40‑17:10</td>
+                        <td class="duration">30 min</td>
+                        <td class="topic">Report & doc auto-gen (Confluence, slide auto-create)</td>
+                        <td class="objective">Documentazione tecnica. Pandas profiling e LaTeX doc</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">17:10‑18:00</td>
+                        <td class="duration">50 min</td>
+                        <td class="topic">Laboratorio guidato: pulizia + grafici + caption</td>
+                        <td class="objective">Rifare tutto su un dataset di vendite libri</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="day4Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day4')">&times;</span>
+            <h2 class="modal-title">Giornata 4: Anomaly Detection & Feature Engineering</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Individuare trend anomali (vendite, traffico digital) e generare feature creative</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Orario</th>
+                        <th>Durata</th>
+                        <th>Contenuto</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">14:00‑14:15</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">Teoria delle anomalie + concept drift</td>
+                        <td class="objective">Fondamenti teorici</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:15‑15:00</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Brainstorming prompt-assisted su anomalie (log eCommerce Mondadori)</td>
+                        <td class="objective">Necessario dataset anonimo Mondadori</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">15:00‑15:45</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Live coding: PyOD / IsolationForest + spiegabilità LIME</td>
+                        <td class="objective">Cursor o Colab, preferisco Colab</td>
+                    </tr>
+                    <tr class="break-row">
+                        <td class="time-slot">15:45‑16:00</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">☕ Break</td>
+                        <td class="objective">-</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:00‑16:50</td>
+                        <td class="duration">50 min</td>
+                        <td class="topic">Feature extraction con LLM (embedding testuali, immagini → CLIP)</td>
+                        <td class="objective">Tecniche avanzate di feature engineering</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:50‑17:30</td>
+                        <td class="duration">35 min</td>
+                        <td class="topic">Report generation + slide (analyst → editor). Challenge: tuning soglie + narrazione per stakeholder business</td>
+                        <td class="objective">Slide usando apprendimenti giorni scorsi. Lavoro in gruppo</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">17:20‑18:00</td>
+                        <td class="duration">40 min</td>
+                        <td class="topic">Breve speech per gruppi</td>
+                        <td class="objective">Valutazione in base a chiarezza e altri fattori</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="day5Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day5')">&times;</span>
+            <h2 class="modal-title">Giornata 5: Dataviz & Dashboards</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Comunicare insight a stakeholder non tecnici in modo rapido</p>
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th>Orario</th>
+                        <th>Durata</th>
+                        <th>Contenuto</th>
+                        <th>Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">14:00‑14:15</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">Principles of storytelling with data</td>
+                        <td class="objective">Fondamenti della narrazione dati</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">14:15‑15:00</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Gen-code grafici con prompt (Matplotlib/Plotly)</td>
+                        <td class="objective">In Colab o Cursor</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">15:00‑15:45</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Dashboard orchestrata (Streamlit, YAML schema)</td>
+                        <td class="objective">Anche AWS dashboard (opzionale con accesso per esperimenti)</td>
+                    </tr>
+                    <tr class="break-row">
+                        <td class="time-slot">15:45‑16:00</td>
+                        <td class="duration">15 min</td>
+                        <td class="topic">☕ Break</td>
+                        <td class="objective">-</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:00‑16:40</td>
+                        <td class="duration">40 min</td>
+                        <td class="topic">Graph caption & narrative generation</td>
+                        <td class="objective">Tono adattato per editori</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">16:40‑17:15</td>
+                        <td class="duration">35 min</td>
+                        <td class="topic">Slide generation Gamma o Beautiful.ai</td>
+                        <td class="objective">Insight/Output da JSON</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">17:15‑18:00</td>
+                        <td class="duration">45 min</td>
+                        <td class="topic">Mini-progetto: dashboard per lancio nuova collana libri (KPI board)</td>
+                        <td class="objective">Monitoraggio performance</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div id="day6Modal" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('day6')">&times;</span>
+            <h2 class="modal-title">Giornata 6: Ethics & Governance / RAG & Agents</h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1rem;">Due percorsi alternativi per completare la formazione</p>
+            
+            <div style="margin-bottom: 2rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">📋 Percorso A: Ethics & Governance</h3>
+                <table class="schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Orario</th>
+                            <th>Durata</th>
+                            <th>Argomento</th>
+                            <th>Obiettivo</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="time-slot">14:00‑15:45</td>
+                            <td class="duration">1h45</td>
+                            <td class="topic">Privacy & sicurezza (PII masking, policy Mondadori, DPA, EU AI Act)</td>
+                            <td class="objective">Operativo sulle API, consapevolezza aziendale</td>
+                        </tr>
+                        <tr class="break-row">
+                            <td class="time-slot">15:45‑16:00</td>
+                            <td class="duration">15 min</td>
+                            <td class="topic">☕ Break</td>
+                            <td class="objective">-</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">16:00‑16:45</td>
+                            <td class="duration">45 min</td>
+                            <td class="topic">Discussione casi d'uso + retrospettiva di quanto appreso</td>
+                            <td class="objective">Brainstorm finale - Claude Game/Quiz?</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">16:45‑17:15</td>
+                            <td class="duration">30 min</td>
+                            <td class="topic">Valutazione & metriche (HITL, hallucination rate, cost monitor)</td>
+                            <td class="objective">Strumenti per monitoraggio AI</td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">17:15‑18:00</td>
+                            <td class="duration">45 min</td>
+                            <td class="topic">Ideathon finale: idee per applicare AI in Mondadori</td>
+                            <td class="objective">Applicazione e ingaggio</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div style="margin-top: 2rem;">
+                <h3 style="color: var(--accent); margin-bottom: 1rem;">🤖 Percorso B: RAG & Agents</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 1rem; font-style: italic;">Preparare l'evoluzione verso workflow autonomi con agenti e sistemi RAG</p>
+                <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 10px; border-left: 4px solid var(--accent);">
+                    <p style="color: var(--text-secondary);">📝 <strong>Nota:</strong> Il programma dettagliato per il percorso RAG & Agents verrà definito in base agli specifici interessi e necessità del team Mondadori, includendo topics come:</p>
+                    <ul style="margin-top: 0.5rem; color: var(--text-secondary);">
+                        <li>RAG pipelines avanzate per knowledge management</li>
+                        <li>Agentic patterns per automazione workflow</li>
+                        <li>Multi-agent orchestration</li>
+                        <li>Integration con sistemi esistenti Mondadori</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Smooth scrolling
@@ -1090,6 +1657,62 @@
         }
 
         createMobileMenu();
+
+        // Modal functions
+        function openModal(dayId) {
+            const modal = document.getElementById(dayId + 'Modal');
+            if (modal) {
+                modal.style.display = 'block';
+                document.body.style.overflow = 'hidden'; // Prevent background scrolling
+                
+                // Add smooth entrance animation
+                setTimeout(() => {
+                    modal.style.opacity = '1';
+                    const content = modal.querySelector('.modal-content');
+                    content.style.transform = 'translateY(0)';
+                }, 10);
+            }
+        }
+
+        function closeModal(dayId) {
+            const modal = document.getElementById(dayId + 'Modal');
+            if (modal) {
+                modal.style.opacity = '0';
+                const content = modal.querySelector('.modal-content');
+                content.style.transform = 'translateY(-20px)';
+                
+                setTimeout(() => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto'; // Restore scrolling
+                }, 300);
+            }
+        }
+
+        // Close modal when clicking outside
+        document.addEventListener('click', function(event) {
+            if (event.target.classList.contains('modal')) {
+                const modalId = event.target.id;
+                const dayId = modalId.replace('Modal', '');
+                closeModal(dayId);
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                const openModals = document.querySelectorAll('.modal[style*="display: block"]');
+                openModals.forEach(modal => {
+                    const dayId = modal.id.replace('Modal', '');
+                    closeModal(dayId);
+                });
+            }
+        });
+
+        // Add smooth transitions to modal content
+        document.querySelectorAll('.modal-content').forEach(content => {
+            content.style.transform = 'translateY(-20px)';
+            content.style.transition = 'transform 0.3s ease';
+        });
 
         // Add hover sound effect (optional)
         const hoverElements = document.querySelectorAll('.cta-button, .day-card, .feature-card');
