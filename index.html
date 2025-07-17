@@ -920,7 +920,7 @@
             <div class="day-card fade-in" style="animation-delay: 0.5s;">
                 <div class="day-number">6</div>
                 <h3 class="day-title">Ethics & Governance / RAG & Agents</h3>
-                <p class="day-description"><strong>Perché è business-critical:</strong> L'AI senza governance è un rischio legale e reputazionale. Un data analyst deve saper implementare AI responsabile e sistemi autonomi. Dall'altra parte anche i sistemi RAG stanno emergendo molto velocemente per interrogare documenti aziendali in linguaggio naturale con contesto specifico aziendale.</p>
+                <p class="day-description"><strong>Perché è business-critical:</strong> L'AI senza governance è un rischio legale e reputazionale. Dall'altra parte anche i sistemi RAG stanno emergendo molto velocemente per interrogare documenti in linguaggio naturale con contesto specifico aziendale.</p>
                 <ul class="topics-list">
                     <li><strong>EU AI Act compliance:</strong> Evitare sanzioni e implementare AI audit-ready</li>
                     <li><strong>RAG enterprise:</strong> Interrogare knowledge base aziendali in modo sicuro e scalabile. Dati sensibili non vengono inviati a provider esterni.</li>
@@ -1722,30 +1722,7 @@
 
         // Create floating tooltips for day cards
         document.querySelectorAll('.day-card').forEach(card => {
-            card.addEventListener('mouseenter', (e) => {
-                const tooltip = document.createElement('div');
-                tooltip.className = 'tooltip';
-                tooltip.textContent = '🚀 Click per dettagli';
-                tooltip.style.cssText = `
-                    position: absolute;
-                    background: var(--accent);
-                    color: white;
-                    padding: 0.5rem 1rem;
-                    border-radius: 20px;
-                    font-size: 0.9rem;
-                    pointer-events: none;
-                    transform: translateY(-10px);
-                    opacity: 0;
-                    transition: all 0.3s ease;
-                    z-index: 1000;
-                `;
-                card.appendChild(tooltip);
-                
-                setTimeout(() => {
-                    tooltip.style.opacity = '1';
-                    tooltip.style.transform = 'translateY(-20px)';
-                }, 10);
-            });
+            
             
             card.addEventListener('mouseleave', () => {
                 const tooltip = card.querySelector('.tooltip');
